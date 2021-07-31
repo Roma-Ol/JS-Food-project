@@ -101,10 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
         close = modal.querySelector("[data-close]");
 
     // Func 4 showing the form.
-    function showForm(element) {
-        element.classList.add("show");
-        element.classList.remove("hide");
+    function showForm() {
+        modal.classList.add("show");
+        modal.classList.remove("hide");
         document.body.style.overflow = "hidden";
+        // clearInterval(timerID);
     }
 
     // Function 4 hiding the form.
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Showing the form on every button click.
     allButtons.forEach(item => {
         item.addEventListener("click", () => {
-          showForm(modal);
+          showForm();
         });
     });
 
@@ -132,6 +133,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", (event)=>{
         if (event.code === "Escape" && modal.classList.contains("show")) {
             hideForm(modal);
+        }
+    });
+
+    // Setting up the timer 2 show our form 6s after site loaded.
+    // const timerID = setTimeout(showForm, 6000);
+
+    // Showing after the full page scroll.
+    let i = 0;
+    window.addEventListener("scroll", ()=> {
+        if (window.pageYOffset + document.documentElement.
+            clientHeight >= document.documentElement.
+            scrollHeight && i < 1) {
+            showForm();
+            i++;
         }
     });
 });
